@@ -1,3 +1,5 @@
+install vagrant and virtualbox as provider plus run the bash script for creating your tls keys.
+
 run 
 
 ```
