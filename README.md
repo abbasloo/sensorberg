@@ -1,5 +1,7 @@
 run 
+
 vagrant up 
+
 throw the following error on macos m1:
 
 ```
