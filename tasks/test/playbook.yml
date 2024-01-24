@@ -1,0 +1,23 @@
+---
+- name: Provision Mosquitto on Rocky Linux 9
+  hosts: mosquitto
+  become: true
+  roles:
+    - mosquitto
+
+- name: Test Mosquitto Server
+  hosts: mosquitto
+  tasks:
+    - name: Publish test message
+      command: "mosquitto_pub -h localhost -p 8883 --capath /etc/mosquitto/tls --cert /etc/mosquitto/tls/client.crt --key /etc/mosquitto/tls/client.key -t test -m 'Hello, MQTT!'"
+      ignore_errors: true
+
+    - name: Subscribe and verify test message
+      command: "mosquitto_sub -h localhost -p 8883 --capath /etc/mosquitto/tls --cert /etc/mosquitto/tls/client.crt --key /etc/mosquitto/tls/client.key -t test -C 1"
+      register: sub_result
+
+    - name: Fail if subscription result is not successful
+      fail:
+        msg: "Test message not received"
+      when: "'Hello, MQTT!' not in sub_result.stdout_lines[0]"
+
