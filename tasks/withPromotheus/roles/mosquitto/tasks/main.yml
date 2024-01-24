@@ -1,0 +1,39 @@
+---
+- name: Install Mosquitto
+  package:
+    name: mosquitto
+    state: latest
+
+- name: Copy Mosquitto configuration file
+  template:
+    src: mosquitto.conf.j2
+    dest: /etc/mosquitto/mosquitto.conf
+  notify: Restart Mosquitto
+
+- name: Create TLS directory
+  file:
+    path: /etc/mosquitto/tls
+    state: directory
+
+- name: Copy TLS certificates
+  copy:
+    src: "tls/{{ item }}"
+    dest: "/etc/mosquitto/tls/{{ item }}"
+  with_items:
+    - ca.crt
+    - server.crt
+    - server.key
+  notify: Restart Mosquitto
+
+- name: Download mqtt_exporter binary
+  get_url:
+    url: "https://github.com/hikhvar/mqtt_exporter/releases/latest/download/mqtt_exporter_linux_amd64"
+    dest: "/usr/local/bin/mqtt_exporter"
+    mode: 0755
+  notify: Restart Mosquitto
+
+- name: Create systemd service for mqtt_exporter
+  template:
+    src: mqtt_exporter.service.j2
+    dest: /etc/systemd/system/mqtt_exporter.service
+  notify: Restart Mosquitto

@@ -1,0 +1,27 @@
+---
+- name: Install Mosquitto
+  package:
+    name: mosquitto
+    state: latest
+
+- name: Copy Mosquitto configuration file
+  template:
+    src: mosquitto.conf.j2
+    dest: /etc/mosquitto/mosquitto.conf
+  notify: Restart Mosquitto
+
+- name: Create TLS directory
+  file:
+    path: /etc/mosquitto/tls
+    state: directory
+
+- name: Copy TLS certificates
+  copy:
+    src: "tls/{{ item }}"
+    dest: "/etc/mosquitto/tls/{{ item }}"
+  with_items:
+    - ca.crt
+    - server.crt
+    - server.key
+  notify: Restart Mosquitto
+

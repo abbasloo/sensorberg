@@ -1,0 +1,11 @@
+[Unit]
+Description=Mosquitto Exporter
+After=network.target
+
+[Service]
+User=root
+ExecStart=/usr/local/bin/mqtt_exporter --mqtt.server=localhost:1883
+
+[Install]
+WantedBy=default.target
+
