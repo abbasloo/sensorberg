@@ -1,8 +1,10 @@
 run 
 
+```
 vagrant up 
+```
 
-throw the following error on macos m1:
+throws the following error on macos m1:
 
 ```
 ==> default: Importing base box 'generic/rocky9'...
