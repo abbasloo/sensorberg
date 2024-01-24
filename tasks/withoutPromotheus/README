@@ -1,3 +1,6 @@
+
+
+
 Creating a highly available (HA) setup for Mosquitto involves enhancing fault tolerance and ensuring continuity in case of server failures. Here are some suggestions on how to improve the setup for better resilience:
 
 Load Balancing:
