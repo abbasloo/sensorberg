@@ -2,7 +2,7 @@ run
 vagrant up 
 throw the following error on macos m1:
 
-
+```
 ==> default: Importing base box 'generic/rocky9'...
 ==> default: Matching MAC address for NAT networking...
 ==> default: Checking if box 'generic/rocky9' version '4.3.2' is up to date...
@@ -32,11 +32,10 @@ VirtualBox GUI is open.
 
 The primary issue for this error is that the provider you're using
 is not properly configured. This is very rarely a Vagrant issue.
-
-
+```
 
 solution:
-trying to deploy vm to aws
+trying to deploy vm's to aws
 
 https://github.com/mitchellh/vagrant-aws
 
