@@ -1,3 +1,6 @@
+
+
+
 Assuming you have a metric representing the total number of MQTT messages received by the Mosquitto broker, you can use the following PromQL query to calculate the hourly rate:
 
 rate(mqtt_messages_total[1h])
